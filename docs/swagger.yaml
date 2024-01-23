@@ -1,0 +1,755 @@
+basePath: /api/News
+definitions:
+  DTO.GetPageParam:
+    properties:
+      pageIndex:
+        type: integer
+      pageSize:
+        type: integer
+      searchParams:
+        items:
+          $ref: '#/definitions/DTO.SearchParam'
+        type: array
+    type: object
+  DTO.GetSearchParam:
+    properties:
+      searchParams:
+        items:
+          $ref: '#/definitions/DTO.SearchParam'
+        type: array
+    type: object
+  DTO.NewsDTO:
+    properties:
+      active:
+        type: boolean
+      articleDate:
+        type: string
+      articleDateS:
+        type: string
+      articleImageUrl:
+        type: string
+      articleUrl:
+        type: string
+      articleUrlSlug:
+        type: string
+      body:
+        type: string
+      bodyImageResized:
+        type: boolean
+      categorysName:
+        type: string
+      channelCode:
+        type: string
+      channelConfigID:
+        type: integer
+      channelConfigName:
+        type: string
+      channelLogoUrl:
+        type: string
+      channelMatomoTrackingID:
+        type: integer
+      channelName:
+        type: string
+      channelProfileID:
+        type: integer
+      channelSeoUrl:
+        type: string
+      channelSubscription:
+        type: integer
+      code:
+        type: string
+      createdBy:
+        type: string
+      createdDate:
+        type: string
+      createdDateS:
+        type: string
+      description:
+        type: string
+      enable:
+        type: boolean
+      hasVideo:
+        type: boolean
+      imageURL:
+        type: string
+      isAllowIframe:
+        type: boolean
+      isFavorite:
+        type: boolean
+      isSubscribedChannel:
+        type: boolean
+      label:
+        type: string
+      languageID:
+        type: integer
+      languageName:
+        type: string
+      mImageURL:
+        type: string
+      modifiedBy:
+        type: string
+      modifiedDate:
+        type: string
+      modifiedDateS:
+        type: string
+      name:
+        type: string
+      newsCategoryLinks:
+        type: string
+      newsID:
+        description: |-
+          Field of News in DB
+          ChannelConfig ChannelConfig `json:"channelConfig"` // Cái này dùng để liên kết bảng ChannelConfig
+        type: integer
+      newsSeoUrl:
+        type: string
+      newsURL:
+        type: string
+      openExternal:
+        type: boolean
+      order:
+        type: integer
+      playVideoUrl:
+        type: string
+      profileImageUrl:
+        type: string
+      publishDate:
+        type: string
+      rawKeywords:
+        type: string
+      sImageURL:
+        type: string
+      searchKeyword:
+        type: string
+      title:
+        type: string
+      totalComment:
+        type: integer
+      totalFavorite:
+        type: integer
+      totalShare:
+        type: integer
+      totalView:
+        type: integer
+    type: object
+  DTO.SearchParam:
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+    type: object
+  Models.ChannelConfig:
+    properties:
+      activate:
+        type: boolean
+      active:
+        type: boolean
+      channelConfigID:
+        type: integer
+      channelProfile:
+        $ref: '#/definitions/Models.ChannelProfile'
+      channelProfileID:
+        type: integer
+      createdBy:
+        type: string
+      createdDate:
+        type: string
+      enable:
+        type: boolean
+      modifiedBy:
+        type: string
+      modifiedDate:
+        type: string
+      name:
+        type: string
+      order:
+        type: integer
+      theme:
+        type: string
+    type: object
+  Models.ChannelProfile:
+    properties:
+      activate:
+        type: boolean
+      active:
+        type: boolean
+      channelNameUnsigned:
+        type: string
+      channelProfileID:
+        type: integer
+      code:
+        type: string
+      createdBy:
+        type: string
+      createdDate:
+        type: string
+      description:
+        type: string
+      enable:
+        type: boolean
+      language:
+        $ref: '#/definitions/Models.Language'
+      languageID:
+        type: integer
+      logoURL:
+        type: string
+      matomaTokenAuth:
+        type: string
+      matomaTrackingID:
+        type: integer
+      modifiedBy:
+        type: string
+      modifiedDate:
+        type: string
+      name:
+        type: string
+      order:
+        type: integer
+      ownerProfileID:
+        type: integer
+      searchKeyWord:
+        type: string
+      themes:
+        type: string
+      website:
+        type: string
+    type: object
+  Models.Language:
+    properties:
+      active:
+        type: boolean
+      code:
+        type: string
+      createdBy:
+        type: string
+      createdDate:
+        type: string
+      languageID:
+        type: integer
+      modifiedBy:
+        type: string
+      modifiedDate:
+        type: string
+      name:
+        type: string
+    type: object
+  Models.News:
+    properties:
+      active:
+        type: boolean
+      articleDate:
+        description: ModifiedDateS    time.Time `json:"modifiedDateS" gorm:"column:ModifiedDateS"`
+        type: string
+      articleImageUrl:
+        description: ArticleDateS     time.Time `json:"articleDateS" gorm:"column:ArticleDateS"`
+        type: string
+      articleUrl:
+        type: string
+      articleUrlSlug:
+        type: string
+      body:
+        type: string
+      bodyImageResized:
+        type: boolean
+      category:
+        type: integer
+      categorysName:
+        type: string
+      channelConfig:
+        allOf:
+        - $ref: '#/definitions/Models.ChannelConfig'
+        description: Khai báo để Join bảng ChannelConfig
+      channelConfigID:
+        type: integer
+      code:
+        type: string
+      createdBy:
+        type: string
+      createdDate:
+        type: string
+      description:
+        type: string
+      enable:
+        type: boolean
+      hasVideo:
+        type: boolean
+      imageUrl:
+        type: string
+      isAllowIframe:
+        type: boolean
+      label:
+        type: string
+      language:
+        $ref: '#/definitions/Models.Language'
+      languageID:
+        type: integer
+      modifiedBy:
+        description: CreatedDateS     time.Time     `json:"createdDateS" gorm:"column:CreatedDateS"`
+        type: string
+      modifiedDate:
+        type: string
+      name:
+        type: string
+      newsID:
+        type: integer
+      newsURL:
+        type: string
+      openExternal:
+        type: boolean
+      order:
+        type: integer
+      playVideoUrl:
+        type: string
+      publishDate:
+        type: string
+      rawKeywords:
+        type: string
+      searchKeyword:
+        type: string
+      title:
+        type: string
+      totalComment:
+        type: integer
+      totalFavorite:
+        type: integer
+      totalShare:
+        type: integer
+      totalView:
+        type: integer
+    type: object
+  ViewModels.NewsViewModel:
+    properties:
+      errorMessage:
+        description: The query error
+        type: string
+      guid:
+        type: string
+      isExisted:
+        description: Existence of the News
+        type: boolean
+      news:
+        $ref: '#/definitions/DTO.NewsDTO'
+      newsID:
+        type: integer
+      result:
+        description: 'Result : success, unsuccess'
+        type: string
+    type: object
+host: localhost:8081
+info:
+  contact:
+    email: pct1003@gmail.com
+    name: ThanhPham
+    url: http://weallnet.com
+  description: This is a sample server for News model.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: News API
+  version: 1.21.0
+paths:
+  /ChannelProfile/GetChannelNews:
+    get:
+      consumes:
+      - application/json
+      description: This method will return all data which is filtered by searchParams
+        and sortParams
+      parameters:
+      - description: 'the key includes: searchCode,languageID, ownerProfileID sortedField
+          and sortedDirection.'
+        in: body
+        name: searchParams
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetSearchParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Get a list of Channel News under condition
+      tags:
+      - GetChannelNews
+  /Delete:
+    post:
+      consumes:
+      - application/json
+      description: This method will delete the news by news id. The news id is passed
+        in body by json format.
+      parameters:
+      - description: News ID
+        in: body
+        name: id
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Delete news by id
+      tags:
+      - Delete
+  /Get:
+    get:
+      consumes:
+      - application/json
+      description: This method is used for getting news data by using news id. The
+        news id is passed in Query
+      parameters:
+      - description: News ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Show a News by its ID
+      tags:
+      - GetNews
+  /GetDetail:
+    post:
+      consumes:
+      - application/json
+      description: This method is used for getting news data by using news id or by
+        its code.
+      parameters:
+      - description: 'the key includes: newsID and code'
+        in: body
+        name: searchParams
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetSearchParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Show a News by its ID or by code
+      tags:
+      - GetDetailNews
+  /GetExist:
+    post:
+      consumes:
+      - application/json
+      description: This method will check existence of News by name. The params is
+        passed in body by json format
+      parameters:
+      - description: The key includes name
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetSearchParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Check existence of News
+      tags:
+      - GetExist
+  /GetMany:
+    get:
+      consumes:
+      - application/json
+      description: This method will return all data which is filtered by searchParams
+        and sortParams
+      parameters:
+      - description: 'the key includes: channelConfigID, searchCode,currentNewsID,category,
+          languageID, sortedField and sortedDirection.'
+        in: body
+        name: searchParams
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetSearchParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Get a list of News under condition
+      tags:
+      - GetMany
+  /GetPage:
+    post:
+      consumes:
+      - application/json
+      description: 'This method has some special properties.First of all, we need
+        to understand 2 most important properties pageIndex and pageSize. We gonna
+        divide News table into many pages as formula: Total Pages =Total number of
+        news / pageSize. And pageIndex stands for the index of the page we wanna get
+        data in the pages we''ve divided. Otherwise we also need to filter the data
+        by searchParams and sortParams.'
+      parameters:
+      - description: 'the key includes: channelConfigID, searchCode,currentPostID,
+          sortedField and sortedDirection.'
+        in: body
+        name: searchParams
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetPageParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Get a list of News as page
+      tags:
+      - GetPage
+  /GetRelate:
+    post:
+      consumes:
+      - application/json
+      description: 'This method has some special properties. First of all, we need
+        to understand 2 most important properties pageIndex and pageSize. We gonna
+        divide News table into many pages as formula: Total Pages = Total number of
+        news / pageSize. And pageIndex stands for the index of the page we wanna get
+        data in the pages we''ve divided. Otherwise we also need to filter the data
+        by searchParams and sortParams.'
+      parameters:
+      - description: 'the key includes: category.'
+        in: body
+        name: searchParams
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetPageParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Get a list of News which relate the current News
+      tags:
+      - GetRelate
+  /NewsCategory/GetMany:
+    get:
+      consumes:
+      - application/json
+      description: This method will return all data which is filtered by searchParams
+        and sortParams
+      parameters:
+      - description: the key includes:languageID, currentLanguage, sortedField and
+          sortedDirection.
+        in: body
+        name: searchParams
+        required: true
+        schema:
+          $ref: '#/definitions/DTO.GetSearchParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Get a list of NewsCategory under condition, each NewsCategory element
+        contains 8 News element
+      tags:
+      - GetRibbonNewsCategory
+  /Save:
+    post:
+      consumes:
+      - application/json
+      description: This method will receive news data in body by json format, then
+        it's gonna verify the data and select the suitable method between Save or
+        Update.This method will verify NewsId , if NewsID != 0 Move to Update flow
+        , otherwise move to Save flow. In here, Save stands for Inserting the new
+        Post.
+      parameters:
+      - description: All fields of News
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/Models.News'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Insert new News to DB or Update News
+      tags:
+      - Insert or Update
+  /UpdateByCode:
+    post:
+      consumes:
+      - application/json
+      description: This method will receive news code to update the News. The code
+        is passed in body by json format
+      parameters:
+      - description: All fields of News
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/Models.News'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ViewModels.NewsViewModel'
+      summary: Update News by its code
+      tags:
+      - Update by code
+schemes:
+- http
+swagger: "2.0"
