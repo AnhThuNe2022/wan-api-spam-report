@@ -38,10 +38,10 @@ func main() {
 	//Set Gin mode
 	mode := os.Getenv("GIN_MODE")
 	gin.SetMode(mode)
-
 	//Set log time
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	r := gin.Default()
+	//r.Use(CORSMiddleware())
 
 	News := r.Group("/spamreport")
 	{
@@ -60,4 +60,19 @@ func main() {
 	}
 }
 
-//20-12-2023
+// 24-01-2024
+// func CORSMiddleware() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+// 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+// 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+// 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET")
+
+// 		if c.Request.Method == "OPTIONS" {
+// 			c.AbortWithStatus(204)
+// 			return
+// 		}
+
+// 		c.Next()
+// 	}
+// }
